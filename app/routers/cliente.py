@@ -80,9 +80,9 @@ def modificar_cliente(cliente_id: int, datos: ClienteUpdate, db: Session = Depen
     return cliente
 
 # Baja Lógica
-@router.patch("/{cliente_id}/baja", response_model=ClienteOut)
-def baja_cliente(cliente_id: int, db: Session = Depends(get_db)):
-    cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
+@router.patch("/dni/{dni}/baja", response_model=ClienteOut)
+def baja_cliente(dni: str, db: Session = Depends(get_db)):
+    cliente = db.query(Cliente).filter(Cliente.dni == dni).first()
     if cliente is None:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
