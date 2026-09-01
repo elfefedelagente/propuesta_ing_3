@@ -61,6 +61,7 @@ def crear_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
 @router.put("/{cliente_id}", response_model=ClienteOut)
 def modificar_cliente(cliente_id: int, datos: ClienteUpdate, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first( )
+
     if cliente is None:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
