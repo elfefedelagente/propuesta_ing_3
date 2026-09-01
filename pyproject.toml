@@ -1,0 +1,27 @@
+[project]
+name = "propuesta-ing-3"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Federico Gabriel Cabaña",email = "federicogabriel12@hotmail.com"}
+]
+requires-python = ">=3.14"
+dependencies = [
+    "sqlalchemy (>=2.0.52,<3.0.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)",
+    "email-validator (>=2.3.0,<3.0.0)",
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn (>=0.52.4,<0.53.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+name = "propuesta-ing-3"
+version = "0.1.0"
+description = ""
+authors = ["Cabaña Federico <federicogabriel12@hotmail.com>"]
