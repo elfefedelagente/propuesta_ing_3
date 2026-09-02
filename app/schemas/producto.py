@@ -6,10 +6,10 @@ class ProductoBase(BaseModel):
     marca:str
     descripcion: str | None = None
     precio: float = Field(gt=0, description="El precio debe ser mayor a 0") # gt=0 --> greater than 0
-    stock: int = Field(gt=0, description="El stock no puede ser negativo")
+    stock: int = Field(ge=0, description="El stock no puede ser negativo")
 
 class ProductoCreate(ProductoBase):
-    pass
+    stock: int = Field(gt=0, description="El stock inicial debe ser mayor a 0")
 
 class ProductoUpdate(ProductoBase): 
     pass

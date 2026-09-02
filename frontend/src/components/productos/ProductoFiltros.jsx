@@ -1,25 +1,30 @@
-import {UseState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import FiltroPanel from "../comunes/FiltroPanel";
 
 function ProductoFiltros({ onBuscar }) {
-    const [texto, setTexto] = useState("");
+  const [texto, setTexto] = useState("");
 
-    UseEffect(() => {
-        const timer = setTimeout(() => {
-            onBuscar(texto);
-        }, 400);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onBuscar(texto);
+    }, 400);
+
     return () => clearTimeout(timer);
-    }, [texto]);
+  }, [texto]);
 
-    return(
-        <div className="form-grupo" style={{ maxWidth: "320px" }}>
-            <label>Buscar por nombre o categoría</label>
-            <input
-                type="text"
-                value={texto}
-                onChange={(e) => setTexto(e.target.value)}
-                placeholder="Ej: Camiseta de Boquita, 42..."
-            />
-        </div>
-    );
+  return (
+    <FiltroPanel>
+      <div className="form-grupo" style={{ maxWidth: "320px" }}>
+        <label>Buscar por nombre o SKU</label>
+        <input
+          type="text"
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
+          placeholder="Ej: Yerba, SKU-00042..."
+        />
+      </div>
+    </FiltroPanel>
+  );
 }
+
 export default ProductoFiltros;

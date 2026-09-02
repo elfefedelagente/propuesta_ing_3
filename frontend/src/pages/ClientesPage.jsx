@@ -1,5 +1,7 @@
+// src/pages/ClientesPage.jsx
 import { useState, useEffect } from "react";
 import { listarClientes, darDeBajaCliente } from "../api/clientes";
+import { useToast } from "../context/ToastContext";
 import ClienteForm from "../components/clientes/ClienteForm";
 import ClienteFiltros from "../components/clientes/ClienteFiltros";
 
@@ -8,6 +10,7 @@ function ClientesPage() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const [busqueda, setBusqueda] = useState("");
+  const mostrarToast = useToast();
 
   useEffect(() => {
     cargarClientes(busqueda);
@@ -26,8 +29,9 @@ function ClientesPage() {
     }
   }
 
-  function handleClienteCreado(nuevoCliente) {
-    setClientes((prev) => [...prev, nuevoCliente]);
+  function handleClienteCreado() {
+    cargarClientes(busqueda);
+    mostrarToast("Cliente registrado correctamente", "exito");
   }
 
   async function handleBaja(dni) {
@@ -36,8 +40,9 @@ function ClientesPage() {
       setClientes((prev) =>
         prev.map((c) => (c.dni === dni ? clienteActualizado : c))
       );
+      mostrarToast("Cliente dado de baja", "info");
     } catch (err) {
-      alert(err.message);
+      mostrarToast(err.message, "error");
     }
   }
 
@@ -47,7 +52,7 @@ function ClientesPage() {
 
       <ClienteForm onClienteCreado={handleClienteCreado} />
 
-      <hr style={{ margin: "2rem 0", borderColor: "var(--color-borde)" }} />
+      <hr className="separador" />
 
       <ClienteFiltros onBuscar={setBusqueda} />
 

@@ -87,6 +87,12 @@ def baja_cliente(dni: str, db: Session = Depends(get_db)):
     if cliente is None:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
+    if cliente.estado is False:
+        raise HTTPException(
+            status_code=409,
+            detail="El cliente ya se encuentra dado de baja"
+        )
+
     cliente.estado = False
     db.commit()
     db.refresh(cliente)

@@ -27,6 +27,63 @@ body {
   padding: 2rem 1.5rem;
 }
 
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background-color: var(--color-superficie);
+  border-right: 1px solid var(--color-borde);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0 0.5rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar-boton {
+  background-color: transparent;
+  color: var(--color-texto-suave);
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.sidebar-boton:hover {
+  background-color: var(--color-fondo);
+  opacity: 1;
+  color: var(--color-texto);
+}
+
+.sidebar-boton-activo {
+  background-color: var(--color-primario);
+  color: white;
+}
+
+.sidebar-boton-activo:hover {
+  background-color: var(--color-primario);
+}
+
+.contenido {
+  flex: 1;
+  min-width: 0;
+}
+
 h1 {
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
@@ -115,3 +172,109 @@ input:focus, select:focus {
   gap: 0.35rem;
   margin-bottom: 1rem;
 }
+
+.separador {
+  border: none;
+  border-top: 1px solid var(--color-borde);
+  margin: 1.5rem 0;
+}
+
+.panel-filtros {
+  background-color: rgba(59, 130, 246, 0.07);
+  border: 1px solid var(--color-borde);
+  border-left: 3px solid var(--color-primario);
+  border-radius: 8px;
+  padding: 1rem 1.25rem 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.panel-filtros-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-primario);
+  margin-bottom: 0.85rem;
+}
+
+.panel-filtros .form-grupo {
+  margin-bottom: 1rem;
+}
+
+.barra-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.barra-acciones .form-grupo {
+  flex: 1 1 180px;
+}
+
+.tarjeta-venta {
+  background-color: var(--color-superficie);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tarjeta-venta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tabla-detalle {
+  margin-top: 0.75rem;
+}
+
+.boton-anular {
+  margin-top: 0.75rem;
+  background-color: var(--color-peligro);
+}
+
+.toast-contenedor {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.toast {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: toast-entrada 0.2s ease-out;
+}
+
+.toast-info {
+  background-color: var(--color-primario);
+}
+
+.toast-exito {
+  background-color: var(--color-exito);
+}
+
+.toast-error {
+  background-color: var(--color-peligro);
+}
+
+@keyframes toast-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

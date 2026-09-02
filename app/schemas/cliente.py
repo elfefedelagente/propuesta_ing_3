@@ -12,6 +12,8 @@ class ClienteBase(BaseModel):
     email: EmailStr
     telefono: str
 
+
+class ClienteCreate(ClienteBase):
     @field_validator("nombre", "apellido")
     @classmethod
     def validar_solo_letras(cls, valor: str) -> str:
@@ -27,11 +29,7 @@ class ClienteBase(BaseModel):
         return valor
 
 
-class ClienteCreate(ClienteBase):
-    pass
-
-
-class ClienteUpdate(ClienteBase):
+class ClienteUpdate(ClienteCreate):
     pass
 
 
