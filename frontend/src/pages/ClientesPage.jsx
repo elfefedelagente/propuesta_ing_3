@@ -1,22 +1,25 @@
 // src/pages/ClientesPage.jsx
 import { useState, useEffect } from "react";
-import { listarClientes } from "../api/clientes";
+import { listarClientes, darDeBajaCliente } from "../api/clientes";
 import ClienteForm from "../components/clientes/ClienteForm";
+import ClienteFiltros from "../components/clientes/ClienteFiltros";
 
 function ClientesPage() {
   const [clientes, setClientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
-    cargarClientes();
-  }, []);
+    cargarClientes(busqueda);
+  }, [busqueda]);
 
-  async function cargarClientes() {
+  async function cargarClientes(filtro) {
     try {
       setCargando(true);
-      const data = await listarClientes();
+      const data = await listarClientes(filtro);
       setClientes(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -28,6 +31,17 @@ function ClientesPage() {
     setClientes((prev) => [...prev, nuevoCliente]);
   }
 
+  async function handleBaja(dni) {
+    try {
+      const clienteActualizado = await darDeBajaCliente(dni);
+      setClientes((prev) =>
+        prev.map((c) => (c.dni === dni ? clienteActualizado : c))
+      );
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   return (
     <div className="contenedor">
       <h1>Clientes</h1>
@@ -36,10 +50,16 @@ function ClientesPage() {
 
       <hr style={{ margin: "2rem 0", borderColor: "var(--color-borde)" }} />
 
+      <ClienteFiltros onBuscar={setBusqueda} />
+
       {cargando && <p>Cargando clientes...</p>}
       {error && <p className="error-texto">{error}</p>}
 
-      {!cargando && !error && (
+      {!cargando && !error && clientes.length === 0 && (
+        <p>No se encontraron resultados.</p>
+      )}
+
+      {!cargando && !error && clientes.length > 0 && (
         <table>
           <thead>
             <tr>
@@ -48,6 +68,7 @@ function ClientesPage() {
               <th>Apellido</th>
               <th>Email</th>
               <th>Estado</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +82,13 @@ function ClientesPage() {
                   <span className={`badge ${cliente.estado ? "badge-activo" : "badge-inactivo"}`}>
                     {cliente.estado ? "Activo" : "Inactivo"}
                   </span>
+                </td>
+                <td>
+                  {cliente.estado && (
+                    <button onClick={() => handleBaja(cliente.dni)}>
+                      Dar de baja
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
