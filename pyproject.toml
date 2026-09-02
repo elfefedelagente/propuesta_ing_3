@@ -25,3 +25,7 @@ name = "propuesta-ing-3"
 version = "0.1.0"
 description = ""
 authors = ["Cabaña Federico <federicogabriel12@hotmail.com>"]
+[dependency-groups]
+dev = [
+    "faker (>=40.37.0,<41.0.0)"
+]
