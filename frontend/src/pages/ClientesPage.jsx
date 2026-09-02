@@ -1,4 +1,3 @@
-// src/pages/ClientesPage.jsx
 import { useState, useEffect } from "react";
 import { listarClientes, darDeBajaCliente } from "../api/clientes";
 import ClienteForm from "../components/clientes/ClienteForm";
